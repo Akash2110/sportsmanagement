@@ -129,11 +129,46 @@ body {
        position: absolute;
 }
 </style>
+       <script>
+
+function validatingForm(){
+	
+	
+	if (document.form.sponsorId.value == ""){
+	alert ( "Please update the highlighted field" );
+	document.loginform.userName.focus();
+	return false;
+	}
+       if (document.form.password.value == ""){
+		alert ( "Please update the highlighted field" );
+		document.loginform.userName.focus();
+		return false;
+		}
+       
+	if (document.form.sponsorshipLocation.value == ""){
+	alert ( "Please update the highlighted field" );
+	document.userform.password.focus();
+	return false;
+	}
+	if (document.form.sponsorProduct.value == ""){
+		alert ( "Please update the highlighted field" );
+		document.loginform.userName.focus();
+		return false;
+		}
+	
+	
+	
+	return true;
+	
+
+}
+
+</script>
 </head>
 <body>
        <div class="signup-form">
               <form:form action="sponsorRegisterUser" method="get"
-                     modelAttribute="sponsor">
+                     modelAttribute="sponsor" onsubmit="return validationForm()">
                      <h2>Sponsor Registration</h2>
                      <table>
                            <tr>
@@ -141,11 +176,11 @@ body {
                                                 <div class="input-group">
                                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                        <form:input path="sponsorId" class="form-control"
-                                                              name="sponsorId" placeholder="Sponsor Id" required="required" />
+                                                              name="sponsorId" placeholder="Sponsor Id"  />
                                                 </div>
                                          </div></td>
 
-                                  <td><form:errors path="sponsorId"></form:errors></td>
+                                  <td><form:errors path="sponsorId" class="error"></form:errors></td>
                            </tr>
                            <tr>
                                   <td><div class="form-group">
@@ -154,11 +189,11 @@ body {
                                                               <i class="fa fa-check"></i>
                                                        </span>
                                                        <form:input path="password" class="form-control" name="password"
-                                                              placeholder="Password" required="required" />
+                                                              placeholder="Password"  />
                                                 </div>
                                          </div></td>
 
-                                  <td><form:errors path="password"></form:errors></td>
+                                  <td><form:errors path="password" class="error"></form:errors></td>
                            </tr>
                            
 
@@ -167,11 +202,11 @@ body {
                                                 <div class="input-group">
                                                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                                                        <form:input class="form-control" name="sponsorProduct" path="sponsorProduct"
-                                                              required="required" placeholder="Sponsor Product" />
+                                                               placeholder="Sponsor Product" />
                                                 </div>
                                          </div></td>
 
-                                  <td><form:errors path="sponsorProduct"></form:errors></td>
+                                  <td><form:errors path="sponsorProduct" class="error"></form:errors></td>
                            </tr>
                            <tr>
                                   <td><div class="form-group">
@@ -179,10 +214,10 @@ body {
                                                        <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
                                                        <form:input path="sponsorshipLocation" class="form-control"
                                                               name="sponsorshipLocation" placeholder="Sponsorship Location"
-                                                              required="required" />
+                                                              />
                                                 </div>
                                          </div></td>
-                                  <td><form:errors path="sponsorshipLocation"></form:errors></td>
+                                  <td><form:errors path="sponsorshipLocation" class="error"></form:errors></td>
                            </tr>
                            
                            <tr>
