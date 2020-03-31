@@ -1,5 +1,8 @@
 package com.project.sports.event.management.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.project.sports.event.management.model.Event;
 import com.project.sports.event.management.model.Sponsor;
 import com.project.sports.event.management.model.Sports;
 import com.project.sports.event.management.repository.SponsorRepository;
@@ -28,18 +32,61 @@ public class SportsController {
 		return "sports";
 	}
 
-	// Sports Submission
+	// Sports Update Submission
 	@RequestMapping(value = "/sportRegister", method = RequestMethod.GET)
 	public String registerUser(@Valid @ModelAttribute("sports") Sports sports, BindingResult bindingResult,
 			ModelMap map) {
-
 		if (bindingResult.hasErrors()) {
 			System.out.println("ui details not correct");
 			return "sports";
 		}
+
+		//sportRepository.updateSport(sports.getNoOfPlayers(), sports.getTimeOfMatch(), sports.getSportsId());
 		sportRepository.save(sports);
-		map.put("successful", "Your details are submitted successfully");
+		map.put("successful", sports.getSportsName() + " is added successfully");
+
 		return "organizerHome";
 	}
 
+	// Sports register Submission
+	@RequestMapping(value = "/updateSportRegister", method = RequestMethod.GET)
+	public String updateUser(@Valid @ModelAttribute("sports") Sports sports, BindingResult bindingResult,
+			ModelMap map) {
+
+		if (bindingResult.hasErrors()) {
+			System.out.println("ui details not correct");
+			return "sportUpdate";
+		}
+		sportRepository.updateSport(sports.getNoOfPlayers(), sports.getTimeOfMatch(), sports.getSportsId());
+		map.put("successful", sports.getSportsName() + " is updated successfully");
+		return "organizerHome";
+	}
+
+	// Show Sport Update Page
+	@RequestMapping("/updateSport")
+	
+	public String showUpdateForm(@ModelAttribute("sports") Sports sports, ModelMap map) {
+		if (sports != null) {
+			
+			Sports spo = sportRepository.getOne(sports.getSportsId());
+			map.put("sports", spo);
+			return "sportUpdate";
+		}
+		return "SportsList";
+	}
+
+	@RequestMapping("/listsports")
+	public String listform(@ModelAttribute("sports") Sports sports, ModelMap map) {
+		List<Sports> li = sportRepository.findAll();
+	
+		List<String> lii = new ArrayList<>();
+		for (Sports s : li) {
+			lii.add(s.getSportsName());
+		}
+		map.put("li", li);
+
+		return "SportsList";
+	}
+
+	
 }

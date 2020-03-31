@@ -132,7 +132,7 @@ body {
 </head>
 <body>
 	<div class="signup-form">
-		<form:form action="coachRegisterUser" method="get"
+		<form:form action="coachRegisterUser" method="post"
 			modelAttribute="coach">
 			<h2>Coach Registration</h2>
 			<table>

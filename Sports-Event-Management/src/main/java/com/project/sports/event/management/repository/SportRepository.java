@@ -17,6 +17,6 @@ public interface SportRepository extends JpaRepository<Sports, String>{
 
 	@Modifying
 	@Query("update Sports s set  s.noOfPlayers = ?1, s.timeOfMatch = ?2  where s.id = ?3")
-	void updateEvent(String noOfPlayers, String timeOfMatch, String noOfsportId);
+	void updateSport(String noOfPlayers, String timeOfMatch, String noOfsportId);
 
 }
